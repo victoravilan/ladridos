@@ -1,11 +1,13 @@
-const CACHE_NAME = 'ladridos-v2';
+const CACHE_NAME = 'ladridos-v3';
 const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
   '/img/icon-192.png',
   '/img/icon-512.png',
-  '/img/favicon.png'
+  '/img/favicon.png',
+  '/img/apple-touch-icon.png',
+  '/img/logo-ladridos.png'
 ];
 
 self.addEventListener('install', (event) => {
