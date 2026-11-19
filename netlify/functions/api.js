@@ -73,15 +73,10 @@ function toSafeUser(user) {
   return safe;
 }
 
-// Load breeds data
+// Load breeds data from JSON (avoids eval which can fail in serverless)
 let breedsData = [];
 try {
-  const breedsRaw = fs.readFileSync(path.join(DATA_DIR, 'breeds-data.js'), 'utf-8');
-  // Parse the exported array
-  const match = breedsRaw.match(/export\s+const\s+breedsData\s*=\s*(\[[\s\S]*\]);?\s*$/);
-  if (match) {
-    breedsData = eval(match[1]);
-  }
+  breedsData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'breeds-data.json'), 'utf-8'));
 } catch (e) {
   console.error('Error loading breeds:', e.message);
 }

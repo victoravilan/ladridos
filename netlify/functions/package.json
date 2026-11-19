@@ -1,0 +1,7 @@
+{
+  "name": "ladridos-api",
+  "version": "1.0.0",
+  "description": "Ladridos API serverless function for Netlify",
+  "main": "api.js",
+  "dependencies": {}
+}

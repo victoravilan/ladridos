@@ -31,5 +31,22 @@
     "fotoPerro": "",
     "fotoPerfil": "",
     "createdAt": "2026-11-17T23:30:56.978Z"
+  },
+  {
+    "id": "usr_mwo0b0unfxd57",
+    "nombre": "Test",
+    "email": "test@netlify.com",
+    "password": "938e30c881127b175d27ebc38bd5841d:72f7ca6444f60c60327288477a643217e9e461eb2c5660b4e741c592999ace0a6173d54b353a7a282926e13077cf343398253c81da16c521f4b72602a89a61c4",
+    "userId": "U7407-88-net",
+    "perro": {
+      "nombre": "",
+      "raza": "",
+      "mesNacimiento": "",
+      "anioNacimiento": "",
+      "comentario": ""
+    },
+    "fotoPerro": "",
+    "fotoPerfil": "",
+    "createdAt": "2026-11-19T20:32:27.410Z"
   }
 ]

@@ -3,6 +3,9 @@
   publish = "public"
   functions = "netlify/functions"
 
+[functions]
+  node_bundler = ""
+
 [dev]
   command = "node server/index.js"
   port = 5000
