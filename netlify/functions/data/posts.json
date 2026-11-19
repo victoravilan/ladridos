@@ -1,0 +1,152 @@
+[
+  {
+    "id": "post_mwlbea0nvh2pb",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0007",
+    "raza": "Basset Hound",
+    "historia": "Las orejas largas de los Basset Hounds no son solo adorables, les ayudan a captar mejor los olores!",
+    "archivo": "/videos/basset-orejas.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 25,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Patricia",
+        "texto": "Esas orejas son lo mas tierno del mundo",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.503Z",
+    "createdAt": "2026-11-17T23:19:36.503Z"
+  },
+  {
+    "id": "post_mwlbea0nyrole",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0006",
+    "raza": "Border Collie",
+    "historia": "Los Border Collies son increiblemente inteligentes y organizados. Mira como ordena sus juguetes!",
+    "archivo": "/videos/border-organizacion.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 42,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Elena",
+        "texto": "Son super inteligentes, el mio tambien hace eso",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      },
+      {
+        "autor": "Diego",
+        "texto": "Los Border Collies son geniales",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.503Z",
+    "createdAt": "2026-11-17T23:19:36.503Z"
+  },
+  {
+    "id": "post_mwlbea0ngqs3c",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0005",
+    "raza": "Akita",
+    "historia": "Los Akitas son conocidos por su paciencia y lealtad. Son excelentes guardianes de la familia.",
+    "archivo": "/videos/akita-paciencia.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 19,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Roberto",
+        "texto": "Tengo un Akita y es el mas leal del mundo",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.503Z",
+    "createdAt": "2026-11-17T23:19:36.503Z"
+  },
+  {
+    "id": "post_mwlbea0mg3cn5",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0004",
+    "raza": "Corgi",
+    "historia": "Los Corgis tienen patas cortas pero pueden saltar sorprendentemente alto cuando se emocionan!",
+    "archivo": "/videos/corgi-salto.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 28,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Sofia",
+        "texto": "Que gracioso! Los Corgis son adorables",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.502Z",
+    "createdAt": "2026-11-17T23:19:36.503Z"
+  },
+  {
+    "id": "post_mwlbea0mazq9r",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0003",
+    "raza": "Golden Retriever",
+    "historia": "Los Golden Retrievers son conocidos por su amor a jugar con pelotas. Pueden jugar por horas!",
+    "archivo": "/videos/golden-pelotas.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 31,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Ana",
+        "texto": "Mi Golden es igual, obsesionado con las pelotas",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      },
+      {
+        "autor": "Luis",
+        "texto": "Son los mejores companeros de juego",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.502Z",
+    "createdAt": "2026-11-17T23:19:36.502Z"
+  },
+  {
+    "id": "post_mwlbea0mbcer9",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0002",
+    "raza": "Alaskan Malamute",
+    "historia": "A pesar de su tamano, los Malamutes son muy gentiles y pacientes, especialmente con los ninos.",
+    "archivo": "/videos/malamute-bano.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 23,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Carlos",
+        "texto": "Son hermosos y muy nobles",
+        "fecha": "2026-11-17T23:18:31.164Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.502Z",
+    "createdAt": "2026-11-17T23:19:36.502Z"
+  },
+  {
+    "id": "post_mwlbea0mjvqmd",
+    "autor": "Ladridos Team",
+    "autorId": "DEMO-0001",
+    "raza": "Beagle",
+    "historia": "Los Beagles tienen un olfato increible, pueden detectar olores que nosotros ni imaginamos!",
+    "archivo": "/videos/beagle-olfato.mp4",
+    "tipoArchivo": "video/mp4",
+    "likes": 15,
+    "esDemo": true,
+    "comentarios": [
+      {
+        "autor": "Maria",
+        "texto": "Que increible! Mi Beagle siempre encuentra todo",
+        "fecha": "2026-11-17T23:18:31.156Z"
+      }
+    ],
+    "fecha": "2026-11-17T23:19:36.502Z",
+    "createdAt": "2026-11-17T23:19:36.502Z"
+  }
+]

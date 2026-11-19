@@ -1,0 +1,35 @@
+[
+  {
+    "id": "usr_mwlay69ov7hzc",
+    "nombre": "Test User",
+    "email": "test@test.com",
+    "password": "890d5dd53e55b5b31bf981bc2d6e2061:4c0b02f11e48ad0de274b518cb53f42927860ac016d574ec0d677a9d14c41796b974ada25e51855897733f6b0007d837f5d913e7683bcf80b4118c6f3ed4014f",
+    "userId": "U5148-29-tes",
+    "perro": {
+      "nombre": "",
+      "raza": "",
+      "mesNacimiento": "",
+      "anioNacimiento": "",
+      "comentario": "Mi perro es adorable"
+    },
+    "fotoPerro": "",
+    "fotoPerfil": "/uploads/photos/U5148-29-tes/perfil-1794959600877.png",
+    "createdAt": "2026-11-17T23:07:05.153Z"
+  },
+  {
+    "id": "usr_mwlbsv2omjdc8",
+    "nombre": "Victor",
+    "email": "victoravilan@gmail.com",
+    "password": "f65d54428f787733c8a096ecb3e0489b:c8d6a07493ebe426760c3f882f05c80ded56ca2c2dd37d1284ed5d266b79847f663992422b05359a3687817fae543c05d961790b7cc21f181fe63db72e8e1374",
+    "userId": "U6976-73-gma",
+    "perro": {
+      "nombre": "Felipa",
+      "raza": "Staffi",
+      "mesNacimiento": "10",
+      "anioNacimiento": "2022"
+    },
+    "fotoPerro": "",
+    "fotoPerfil": "",
+    "createdAt": "2026-11-17T23:30:56.978Z"
+  }
+]
