@@ -1,0 +1,8 @@
+node_modules/
+dist/
+server/uploads/
+server/data/users.json
+server/data/posts.json
+*.log
+.DS_Store
+.env

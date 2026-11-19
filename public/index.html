@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2D1B0E" />
+  <meta name="description" content="Ladridos - Red social para amantes de los perros" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Ladridos" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/img/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/img/icon-192.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+  <title>Ladridos - Red Social Canina</title>
+  <style>
+    :root {
+      --color-primary: #2D1B0E;
+      --color-primary-light: #5C3A1E;
+      --color-accent: #F59E0B;
+      --color-accent-dark: #D97706;
+      --color-bg: #FFF8F0;
+      --color-bg-card: #FFFFFF;
+      --color-bg-alt: #FAF3E7;
+      --color-text: #1F1B16;
+      --color-text-light: #6B5D4F;
+      --color-border: #E8DDD0;
+      --color-danger: #DC2626;
+      --color-success: #16A34A;
+      --color-info: #2563EB;
+      --color-pink: #EC4899;
+      --color-purple: #7C3AED;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+      --gradient-primary: linear-gradient(135deg, #2D1B0E 0%, #5C3A1E 100%);
+      --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+      --gradient-warm: linear-gradient(135deg, #FFF8F0 0%, #FAF3E7 100%);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--color-bg); color: var(--color-text); min-height: 100vh; overscroll-behavior-y: none; }
+    #root { min-height: 100vh; max-width: 500px; margin: 0 auto; position: relative; padding-bottom: 70px; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input, textarea, select { font-family: inherit; }
+
+    /* HEADER */
+    .header { position: sticky; top: 0; z-index: 100; background: var(--gradient-primary); color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-md); }
+    .header-logo { display: flex; align-items: center; gap: 8px; }
+    .header-logo img { width: 36px; height: 36px; border-radius: 50%; }
+    .header-logo h1 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .btn-primary { background: var(--gradient-accent); color: #fff; padding: 8px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.85rem; transition: transform 0.15s; }
+    .btn-primary:hover { transform: scale(1.05); }
+    .btn-secondary { background: var(--color-bg-alt); color: var(--color-text); padding: 8px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.85rem; border: 1px solid var(--color-border); }
+    .btn-icon { color: #fff; padding: 6px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .btn-icon:hover { background: rgba(255,255,255,0.15); }
+
+    /* PWA BANNER */
+    .pwa-banner { background: var(--color-primary); color: #fff; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; gap: 8px; }
+
+    /* HERO */
+    .hero { padding: 12px 16px; background: var(--gradient-warm); }
+    .hero-breed-card { background: var(--color-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); cursor: pointer; transition: transform 0.2s; }
+    .hero-breed-card:hover { transform: translateY(-2px); }
+    .hero-breed-img { width: 100%; height: 220px; object-fit: contain; background: #f8f5f0; padding: 8px; }
+    .hero-breed-info { padding: 12px 16px; }
+    .hero-breed-info h3 { font-size: 1.1rem; color: var(--color-primary); margin-bottom: 4px; }
+    .hero-breed-info p { font-size: 0.85rem; color: var(--color-text-light); line-height: 1.4; }
+    .hero-breed-info small { color: var(--color-accent-dark); font-weight: 600; font-size: 0.75rem; }
+
+    /* FEED */
+    .feed { padding: 16px; }
+    .section-title { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 700; color: var(--color-primary); margin-bottom: 12px; }
+    .post-card { background: var(--color-bg-card); border-radius: var(--radius-md); margin-bottom: 16px; box-shadow: var(--shadow-sm); overflow: hidden; }
+    .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
+    .post-author { display: flex; align-items: center; gap: 8px; }
+    .post-author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient-accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+    .post-author-name { font-weight: 600; font-size: 0.9rem; }
+    .post-raza-badge { background: rgba(245,158,11,0.15); color: var(--color-accent-dark); padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+    .post-date { font-size: 0.75rem; color: var(--color-text-light); }
+    .post-historia { padding: 0 16px 12px; font-size: 0.9rem; line-height: 1.5; color: var(--color-text); }
+    .post-media { width: 100%; max-height: 400px; object-fit: cover; background: #000; }
+    .post-actions { display: flex; gap: 16px; padding: 8px 16px; border-top: 1px solid var(--color-border); }
+    .action-btn { display: flex; align-items: center; gap: 4px; color: var(--color-text-light); font-size: 0.85rem; padding: 4px 8px; border-radius: var(--radius-sm); transition: all 0.15s; }
+    .action-btn:hover { background: var(--color-bg-alt); color: var(--color-pink); }
+    .post-comments { padding: 8px 16px 12px; }
+    .comment { font-size: 0.8rem; margin-bottom: 4px; padding: 4px 0; border-bottom: 1px solid var(--color-border); }
+    .comment strong { color: var(--color-primary); }
+    .comment-input-row { display: flex; gap: 8px; margin-top: 8px; }
+    .comment-input { flex: 1; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.85rem; outline: none; }
+    .comment-input:focus { border-color: var(--color-accent); }
+    .btn-comment { background: var(--color-accent); color: #fff; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; }
+    .link-btn { color: var(--color-accent-dark); font-weight: 600; text-decoration: underline; background: none; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--color-text-light); }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+    .empty-state p { font-size: 0.9rem; line-height: 1.6; }
+
+    /* CANINOTECA */
+    .caninoteca-search { padding: 12px 16px; display: flex; gap: 8px; position: sticky; top: 56px; background: var(--color-bg); z-index: 50; }
+    .form-input { flex: 1; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+    .form-input:focus { border-color: var(--color-accent); }
+    .form-select { padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.85rem; background: #fff; }
+    .caninoteca-stats { padding: 0 16px 8px; font-size: 0.8rem; color: var(--color-text-light); display: flex; align-items: center; }
+    .caninoteca-grid { padding: 8px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .breed-card { background: var(--color-bg-card); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.15s; }
+    .breed-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .breed-card img { width: 100%; height: 180px; object-fit: contain; background: #f8f5f0; }
+    .breed-card-info { padding: 8px 12px; }
+    .breed-card-info h4 { font-size: 0.85rem; color: var(--color-primary); margin-bottom: 2px; }
+    .breed-card-info p { font-size: 0.7rem; color: var(--color-text-light); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .modal { background: #fff; border-radius: var(--radius-lg); width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); }
+    .modal-large { max-width: 500px; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--color-border); position: sticky; top: 0; background: #fff; z-index: 10; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .modal-header h2 { font-size: 1.2rem; color: var(--color-primary); }
+    .btn-close { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-text-light); }
+    .btn-close:hover { background: var(--color-bg-alt); }
+    .modal-body { padding: 20px; }
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 0.8rem; color: var(--color-text-light); margin-bottom: 4px; font-weight: 500; }
+    .form-textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 0.9rem; min-height: 80px; resize: vertical; outline: none; }
+    .form-textarea:focus { border-color: var(--color-accent); }
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
+    .form-error { color: var(--color-danger); font-size: 0.8rem; margin-top: 4px; }
+    .toggle-auth { text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--color-text-light); }
+
+    /* BREED DETAIL */
+    .breed-detail { text-align: center; }
+    .breed-detail img { width: 100%; max-height: 300px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 12px; }
+    .breed-detail h3 { font-size: 1.3rem; color: var(--color-primary); margin-bottom: 8px; }
+    .breed-detail .descripcion { font-size: 0.9rem; line-height: 1.6; color: var(--color-text); margin-bottom: 16px; text-align: left; }
+    .fci-badge { display: inline-block; background: var(--color-accent); color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: left; margin-top: 8px; }
+    .detail-item { background: var(--color-bg-alt); padding: 10px 12px; border-radius: var(--radius-sm); }
+    .detail-item .label { display: block; font-size: 0.7rem; color: var(--color-text-light); margin-bottom: 2px; }
+    .detail-item .value { font-size: 0.85rem; font-weight: 600; color: var(--color-primary); }
+
+    /* MAP */
+    .map-container { width: 100%; height: 250px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 12px; }
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+    .location-list { padding: 8px 16px; }
+    .location-item { display: flex; gap: 12px; background: var(--color-bg-card); padding: 12px; border-radius: var(--radius-md); margin-bottom: 8px; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.15s; }
+    .location-item:hover { transform: translateX(4px); }
+    .location-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(245,158,11,0.15); color: var(--color-accent-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem; }
+    .location-info { flex: 1; }
+    .location-info h4 { font-size: 0.9rem; color: var(--color-primary); margin-bottom: 2px; }
+    .location-info p { font-size: 0.8rem; color: var(--color-text-light); }
+    .location-distance { display: inline-block; background: var(--color-accent); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; margin-top: 4px; }
+    .location-features { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .feature-tag { background: var(--color-bg-alt); padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; color: var(--color-text-light); }
+
+    /* PROFILE */
+    .profile-header { background: var(--gradient-primary); color: #fff; padding: 30px 20px; text-align: center; }
+    .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--gradient-accent); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 700; }
+    .profile-name { font-size: 1.3rem; font-weight: 700; }
+    .profile-email { font-size: 0.85rem; opacity: 0.8; margin-top: 2px; }
+    .profile-dog { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2); }
+    .profile-dog-name { font-size: 1rem; font-weight: 600; }
+    .profile-dog-info { font-size: 0.8rem; opacity: 0.8; margin-top: 4px; }
+    .profile-section { padding: 16px; }
+    .profile-section h3 { font-size: 1rem; color: var(--color-primary); margin-bottom: 12px; }
+    .profile-video-item { display: flex; gap: 12px; background: var(--color-bg-card); padding: 8px; border-radius: var(--radius-sm); margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+    .profile-video-item video { width: 100px; height: 75px; object-fit: cover; border-radius: var(--radius-sm); background: #000; }
+    .profile-video-info { flex: 1; }
+    .profile-video-info p { font-size: 0.8rem; line-height: 1.4; }
+    .profile-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.3); margin: 0 auto 12px; display: block; }
+    .profile-pet-photo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.3); margin: 0 auto 8px; display: block; }
+    .profile-comment { font-size: 0.85rem; opacity: 0.9; font-style: italic; margin-top: 8px; padding: 0 20px; }
+    .profile-edit-btn { background: rgba(255,255,255,0.2); color: #fff; padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; margin-top: 12px; }
+    .photo-upload { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .photo-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px dashed var(--color-border); }
+    .photo-label { font-size: 0.75rem; color: var(--color-text-light); text-align: center; }
+
+    /* BANNER */
+    .banner-container { width: 100%; overflow: hidden; background: var(--color-primary); max-height: 80px; }
+    .banner-container img { width: 100%; height: 80px; object-fit: cover; display: block; }
+    .banner-dots { display: flex; justify-content: center; gap: 6px; padding: 4px; background: var(--color-bg); }
+    .banner-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-border); transition: background 0.3s; cursor: pointer; }
+    .banner-dot.active { background: var(--color-accent); }
+
+    /* FAB */
+    .fab-wrap { position: fixed; bottom: 80px; right: 20px; z-index: 90; display: flex; align-items: center; gap: 10px; flex-direction: row-reverse; }
+    .fab { width: 56px; height: 56px; border-radius: 50%; background: var(--gradient-accent); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(245,158,11,0.5); font-size: 1.4rem; transition: transform 0.2s; position: relative; }
+    .fab:hover { transform: scale(1.1); }
+    .fab-pulse { position: absolute; width: 56px; height: 56px; border-radius: 50%; background: var(--color-accent); opacity: 0.4; animation: fabPulse 2s ease-out infinite; z-index: -1; }
+    @keyframes fabPulse { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(1.8); opacity: 0; } }
+    .fab-label { background: var(--color-primary); color: #fff; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; box-shadow: var(--shadow-md); white-space: nowrap; pointer-events: none; }
+
+    /* BOTTOM NAV */
+    .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; background: var(--color-bg-card); display: flex; justify-content: space-around; padding: 6px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.06); z-index: 100; border-top: 1px solid var(--color-border); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 12px; color: var(--color-text-light); font-size: 0.65rem; border-radius: var(--radius-sm); transition: color 0.15s; }
+    .nav-item.active { color: var(--color-accent-dark); }
+    .nav-item svg { width: 22px; height: 22px; }
+
+    /* FOOTER */
+    .footer { text-align: center; padding: 20px 16px; font-size: 0.75rem; color: var(--color-text-light); background: var(--color-bg-alt); }
+    .footer p { margin: 2px 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) { .caninoteca-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 481px) { #root { border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); } }
+
+    /* SVG ICONS */
+    .icon { width: 1em; height: 1em; display: inline-block; vertical-align: middle; fill: currentColor; }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:12px;">
+      <div style="width:40px;height:40px;border:3px solid var(--color-border);border-top-color:var(--color-accent);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+      <p style="color:var(--color-text-light);font-size:0.9rem;">Cargando Ladridos...</p>
+    </div>
+    <style>@keyframes spin {to{transform:rotate(360deg)}}</style>
+  </div>
+
+  <script>
+    // Simple SPA framework - no React needed
+    const API = '/api';
+    let state = {
+      posts: [], user: null, activeTab: 'home',
+      breeds: [], breedSearch: '', breedGroupFilter: '', randomBreed: null,
+      pipicanes: [], stores: [], userLocation: null, locationError: '',
+      showLogin: false, showUpload: false, showBreedDetail: false, showProfileEdit: false,
+      userPosts: [], loading: false, authError: '',
+      _isRegister: false,
+      currentBanner: Math.floor(Math.random() * 6),
+      banners: ['/img/banners/banner-1.jpg','/img/banners/banner-2.jpg','/img/banners/banner-3.jpg','/img/banners/banner-4.jpg','/img/banners/banner-5.jpg','/img/banners/banner-6.jpg']
+    };
+
+    // SVG Icons
+    const icons = {
+      home: '<svg class="icon" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9v9a2 2 0 01-2 2h-4v-7H10v7H6a2 2 0 01-2-2v-9z"/></svg>',
+      book: '<svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20V2H6.5A2.5 2.5 0 004 4.5v15z"/></svg>',
+      map: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>',
+      user: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 5v3h18v-3c0-2.5-4-5-9-5z"/></svg>',
+      upload: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 2v12m0-12l-4 4m4-4l4 4M4 18v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>',
+      heart: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6 4 4.5 8C19 16.5 12 21 12 21z"/></svg>',
+      comment: '<svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>',
+      share: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 8a3 3 0 11-2.83-2.97L18 8zM8 16a3 3 0 11.97-2.83L8 16zm8-8L8 16"/></svg>',
+      search: '<svg class="icon" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',
+      logout: '<svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4m7 14l5-5-5-5m5 5H9"/></svg>',
+      close: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+      paw: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 13c-2 0-3 1-3 2.5S10 18 12 18s3-1 3-2.5S14 13 12 13zM6 10a2 2 0 100 4 2 2 0 000-4zm12 0a2 2 0 100 4 2 2 0 000-4zM9 6a2 2 0 100 4 2 2 0 000-4zm6 0a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+      store: '<svg class="icon" viewBox="0 0 24 24"><path d="M3 9l1-5h16l1 5M4 9v11h16V9M4 9h16M9 20v-6h6v6"/></svg>',
+      nav: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg>',
+      clock: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 22a10 10 0 100-20 10 10 0 000 20zm0-16v6l4 2"/></svg>',
+      download: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>'
+    };
+
+    // API helpers
+    async function apiGet(path) {
+      const token = localStorage.getItem('ladridos_token');
+      const headers = {};
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      const res = await fetch(API + path, { headers });
+      if (!res.ok) return null;
+      return res.json();
+    }
+    async function apiPost(path, body, isJson = true) {
+      const opts = { method: 'POST', headers: {} };
+      if (isJson) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+      else { opts.body = body; }
+      const token = localStorage.getItem('ladridos_token');
+      if (token) opts.headers['Authorization'] = 'Bearer ' + token;
+      try {
+        const res = await fetch(API + path, opts);
+        const data = await res.json().catch(() => ({ message: 'Error de conexion' }));
+        if (!res.ok) return { error: true, message: data.message || 'Error' };
+        return data;
+      } catch (e) {
+        return { error: true, message: 'No se pudo conectar al servidor' };
+      }
+    }
+
+    // Init
+    async function init() {
+      // Restore session
+      const token = localStorage.getItem('ladridos_token');
+      if (token) {
+        const data = await apiGet('/auth/me');
+        if (data?.user) { state.user = data.user; loadUserPosts(data.user.userId); }
+        else localStorage.removeItem('ladridos_token');
+      }
+
+      // Load data
+      apiPost('/posts/demo').then(() => loadPosts());
+      loadBreeds();
+      loadRandomBreed();
+      loadPipicanes();
+      loadStores();
+
+      // PWA install
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        state.deferredPrompt = e;
+        render();
+      });
+
+      // Banner rotation every 60 seconds
+      setInterval(() => {
+        state.currentBanner = (state.currentBanner + 1) % state.banners.length;
+        renderBanner();
+      }, 60000);
+
+      render();
+    }
+
+    async function loadPosts() {
+      const data = await apiGet('/posts');
+      state.posts = Array.isArray(data) ? data : [];
+      render();
+    }
+    async function loadBreeds() {
+      const data = await apiGet('/breeds');
+      state.breeds = Array.isArray(data) ? data : [];
+      render();
+    }
+    async function loadRandomBreed() {
+      state.randomBreed = await apiGet('/breeds/random');
+      render();
+    }
+    async function loadPipicanes() {
+      const url = state.userLocation ? `/pipicans/nearby?lat=${state.userLocation.lat}&lng=${state.userLocation.lng}` : '/pipicans';
+      state.pipicanes = await apiGet(url) || [];
+      render();
+    }
+    async function loadStores() {
+      const url = state.userLocation ? `/stores/nearby?lat=${state.userLocation.lat}&lng=${state.userLocation.lng}` : '/stores';
+      state.stores = await apiGet(url) || [];
+      render();
+    }
+    async function loadUserPosts(userId) {
+      const data = await apiGet('/posts/user/' + userId);
+      state.userPosts = Array.isArray(data) ? data : [];
+      render();
+    }
+
+    function getLocation() {
+      if (!navigator.geolocation) { state.locationError = 'Tu navegador no soporta geolocalizacion'; render(); return; }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          state.userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          state.locationError = '';
+          loadPipicanes(); loadStores();
+        },
+        () => { state.locationError = 'No se pudo obtener tu ubicacion. Activa el GPS.'; render(); },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
+    // Auth
+    async function handleLogin(email, password, remember) {
+      state.loading = true; state.authError = ''; render();
+      const data = await apiPost('/auth/login', { email, password });
+      if (data.error) { state.authError = data.message || 'Error'; }
+      else {
+        localStorage.setItem('ladridos_token', data.token);
+        if (remember) {
+          localStorage.setItem('ladridos_remember', 'true');
+          localStorage.setItem('ladridos_remember_email', email);
+        } else {
+          localStorage.removeItem('ladridos_remember');
+          localStorage.removeItem('ladridos_remember_email');
+        }
+        state.user = data.user;
+        state.showLogin = false;
+        loadUserPosts(data.user.userId);
+      }
+      state.loading = false; render();
+    }
+
+    async function handleRegister(formData, remember) {
+      state.loading = true; state.authError = ''; render();
+      const data = await apiPost('/auth/register', formData);
+      if (data.error) { state.authError = data.message || 'Error'; }
+      else {
+        localStorage.setItem('ladridos_token', data.token);
+        if (remember) {
+          localStorage.setItem('ladridos_remember', 'true');
+          localStorage.setItem('ladridos_remember_email', formData.email);
+        } else {
+          localStorage.removeItem('ladridos_remember');
+          localStorage.removeItem('ladridos_remember_email');
+        }
+        state.user = data.user;
+        state.showLogin = false;
+      }
+      state.loading = false; render();
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('ladridos_token');
+      // Keep remember-me settings so user can log back in easily
+      state.user = null;
+      state.userPosts = [];
+      state.activeTab = 'home';
+      render();
+    }
+
+    // Posts
+    async function handleLike(postId) {
+      await apiPost('/posts/' + postId + '/like');
+      loadPosts();
+    }
+
+    // Render
+    function render() {
+      const root = document.getElementById('root');
+      let html = '';
+
+      // PWA banner
+      if (state.deferredPrompt && !localStorage.getItem('ladridos_installed')) {
+        html += '<div class="pwa-banner"><span>' + icons.download + ' Instala Ladridos en tu movil</span><div style="display:flex;gap:8px"><button class="btn-primary" onclick="installApp()">Instalar</button><button class="btn-secondary" onclick="state.deferredPrompt=null;render()">Ahora no</button></div></div>';
+      }
+
+      // Header
+      html += '<header class="header"><div class="header-logo"><img src="/img/icon-80.png" alt="Ladridos" onerror="this.style.display=\'none\'"/><h1>Ladridos</h1></div><div class="header-actions">';
+      if (state.user) {
+        html += '<span style="font-size:0.8rem;opacity:0.8">' + escapeHtml(state.user.nombre) + '</span><button class="btn-icon" onclick="handleLogout()" title="Cerrar sesion">' + icons.logout + '</button>';
+      } else {
+        html += '<button class="btn-primary" onclick="state.showLogin=true;render()">Entrar</button>';
+      }
+      html += '</div></header>';
+
+      // Banner
+      html += '<div class="banner-container" id="banner-container"><img src="' + state.banners[state.currentBanner] + '" alt="Banner Ladridos" onerror="this.style.display=\'none\'"/></div>';
+      html += '<div class="banner-dots" id="banner-dots">';
+      for (let i = 0; i < state.banners.length; i++) {
+        html += '<div class="banner-dot' + (i === state.currentBanner ? ' active' : '') + '" onclick="setBanner(' + i + ')"></div>';
+      }
+      html += '</div>';
+
+      // Content
+      if (state.activeTab === 'home') html += renderHome();
+      else if (state.activeTab === 'caninoteca') html += renderCaninoteca();
+      else if (state.activeTab === 'pipicanes') html += renderPipicanes();
+      else if (state.activeTab === 'stores') html += renderStores();
+      else if (state.activeTab === 'profile') html += renderProfile();
+
+      // FAB
+      if (state.user && state.activeTab === 'home') {
+        html += '<div class="fab-wrap"><button class="fab" onclick="state.showUpload=true;render()" title="Subir video de tu perro"><span class="fab-pulse"></span>' + icons.upload + '</button><div class="fab-label">Subir video</div></div>';
+      }
+
+      // Bottom nav
+      html += '<nav class="bottom-nav">';
+      const tabs = [['home','Inicio',icons.home],['caninoteca','Caninoteca',icons.book],['pipicanes','Pipicanes',icons.map],['stores','Tiendas',icons.store],['profile','Perfil',icons.user]];
+      for (const [tab, label, icon] of tabs) {
+        html += '<button class="nav-item' + (state.activeTab===tab?' active':'') + '" onclick="state.activeTab=\''+tab+'\';render()">' + icon + '<span>' + label + '</span></button>';
+      }
+      html += '</nav>';
+
+      // Footer
+      html += '<footer class="footer"><p>Creado por <strong>Victor M.F. Avilan - Valor Agregado</strong></p><p>Ladridos (c) 2026 - Todos los derechos reservados</p></footer>';
+
+      // Modals
+      if (state.showLogin) html += renderLoginModal();
+      if (state.showUpload) html += renderUploadModal();
+      if (state.showProfileEdit) html += renderProfileEditModal();
+      if (state.showBreedDetail) html += renderBreedDetailModal();
+
+      root.innerHTML = html;
+    }
+
+    function renderHome() {
+      let html = '';
+      // Hero breed
+      if (state.randomBreed) {
+        html += '<div class="hero"><div class="hero-breed-card" onclick="state.activeTab=\'caninoteca\';render()"><img src="' + (state.randomBreed.imagen||'/img/icon-512.png') + '" alt="' + escapeHtml(state.randomBreed.nombre) + '" class="hero-breed-img" onerror="this.src=\'/img/icon-512.png\'"/><div class="hero-breed-info"><h3>' + escapeHtml(state.randomBreed.nombre) + '</h3><p>' + escapeHtml(state.randomBreed.descripcion || 'Descubre mas sobre esta raza en la Caninoteca') + '</p><small>Toca para explorar la Caninoteca >></small></div></div></div>';
+      }
+      // Feed
+      html += '<div class="feed"><div class="section-title">' + icons.paw + '<span>Ultimos videos</span></div>';
+      if (state.posts.length === 0) {
+        html += '<div class="empty-state"><div class="empty-state-icon">' + icons.paw + '</div><p>Aun no hay videos compartidos.<br>Sé el primero en subir el tuyo!</p></div>';
+      } else {
+        for (const post of state.posts) {
+          html += '<div class="post-card"><div class="post-header"><div class="post-author"><div class="post-author-avatar">' + (post.autor?.charAt(0)?.toUpperCase() || 'D') + '</div><div><div class="post-author-name">' + escapeHtml(post.autor||'Demo') + '</div><span class="post-raza-badge">' + escapeHtml(post.raza||'') + '</span></div></div><small class="post-date">' + new Date(post.fecha).toLocaleDateString('es-ES',{day:'numeric',month:'short'}) + '</small></div>';
+          html += '<p class="post-historia">' + escapeHtml(post.historia||'') + '</p>';
+          if (post.tipoArchivo?.startsWith('video/') || post.archivo?.endsWith('.mp4')) {
+            html += '<video class="post-media" controls preload="metadata" src="' + post.archivo + '"></video>';
+          } else if (post.archivo) {
+            html += '<img class="post-media" src="' + post.archivo + '" alt="Post" />';
+          }
+          html += '<div class="post-actions"><button class="action-btn" onclick="handleLike(\'' + post.id + '\')">' + icons.heart + '<span>' + (post.likes||0) + '</span></button><button class="action-btn">' + icons.comment + '<span>' + (post.comentarios?.length||0) + '</span></button><button class="action-btn">' + icons.share + '</button></div>';
+          html += '<div class="post-comments">';
+          if (post.comentarios) {
+            for (const c of post.comentarios) {
+              html += '<div class="comment"><strong>' + escapeHtml(c.autor) + ':</strong> ' + escapeHtml(c.texto) + '</div>';
+            }
+          }
+          if (state.user) {
+            html += '<div class="comment-input-row"><input class="comment-input" id="comment-' + post.id + '" placeholder="Escribe un comentario..." onkeydown="if(event.key===\'Enter\')handleComment(\'' + post.id + '\')"/><button class="btn-comment" onclick="handleComment(\'' + post.id + '\')">Enviar</button></div>';
+          } else {
+            html += '<p style="font-size:0.8rem;color:var(--color-text-light);margin-top:8px"><button class="link-btn" onclick="state.showLogin=true;render()">Inicia sesion</button> para comentar</p>';
+          }
+          html += '</div></div>';
+        }
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderCaninoteca() {
+      let html = '<div class="caninoteca-search"><input class="form-input" placeholder="Buscar raza..." value="' + escapeAttr(state.breedSearch) + '" oninput="state.breedSearch=this.value;renderCaninotecaGrid()"/><select class="form-select" onchange="state.breedGroupFilter=this.value;renderCaninotecaGrid()">';
+      const groups = [['','Todos'],['Grupo I','I - Pastor'],['Grupo II','II - Molosoides'],['Grupo III','III - Terriers'],['Grupo IV','IV - Teckels'],['Grupo V','V - Spitz'],['Grupo VI','VI - Sabuesos'],['Grupo VII','VII - Muestra'],['Grupo VIII','VIII - Cobradores'],['Grupo IX','IX - Compania'],['Grupo X','X - Lebreles'],['Hibrido','Hibridos']];
+      for (const [val, label] of groups) {
+        html += '<option value="' + val + '"' + (state.breedGroupFilter===val?' selected':'') + '>' + label + '</option>';
+      }
+      html += '</select></div>';
+
+      const filtered = state.breeds.filter(b => {
+        const ms = !state.breedSearch || b.nombre.toLowerCase().includes(state.breedSearch.toLowerCase());
+        const mg = !state.breedGroupFilter || b.grupoFCI === state.breedGroupFilter;
+        return ms && mg;
+      });
+
+      html += '<div class="caninoteca-stats">' + filtered.length + ' razas <button class="link-btn" style="margin-left:8px" onclick="loadRandomBreed()">Raza al azar</button></div>';
+      html += '<div class="caninoteca-grid" id="caninoteca-grid">';
+      for (const breed of filtered) {
+        html += '<div class="breed-card" onclick="state.showBreedDetail=' + JSON.stringify(breed).replace(/"/g,'&quot;') + ';render()"><img src="' + (breed.imagen||'/img/icon-512.png') + '" alt="' + escapeAttr(breed.nombre) + '" loading="lazy" onerror="this.src=\'/img/icon-512.png\'"/><div class="breed-card-info"><h4>' + escapeHtml(breed.nombre) + '</h4><p>' + escapeHtml(breed.origen||'') + ' - ' + escapeHtml(breed.tamano||'') + '</p></div></div>';
+      }
+      html += '</div>';
+      if (filtered.length === 0) {
+        html += '<div class="empty-state"><div class="empty-state-icon">' + icons.search + '</div><p>No se encontraron razas.<br>Intenta con otro termino de busqueda.</p></div>';
+      }
+      return html;
+    }
+
+    function renderCaninotecaGrid() {
+      const grid = document.getElementById('caninoteca-grid');
+      if (!grid) return;
+      const filtered = state.breeds.filter(b => {
+        const ms = !state.breedSearch || b.nombre.toLowerCase().includes(state.breedSearch.toLowerCase());
+        const mg = !state.breedGroupFilter || b.grupoFCI === state.breedGroupFilter;
+        return ms && mg;
+      });
+      const stats = document.querySelector('.caninoteca-stats');
+      if (stats) stats.innerHTML = filtered.length + ' razas <button class="link-btn" style="margin-left:8px" onclick="loadRandomBreed()">Raza al azar</button>';
+      let html = '';
+      for (const breed of filtered) {
+        html += '<div class="breed-card" onclick="state.showBreedDetail=' + JSON.stringify(breed).replace(/"/g,'&quot;') + ';render()"><img src="' + (breed.imagen||'/img/icon-512.png') + '" alt="' + escapeAttr(breed.nombre) + '" loading="lazy" onerror="this.src=\'/img/icon-512.png\'"/><div class="breed-card-info"><h4>' + escapeHtml(breed.nombre) + '</h4><p>' + escapeHtml(breed.origen||'') + ' - ' + escapeHtml(breed.tamano||'') + '</p></div></div>';
+      }
+      grid.innerHTML = html;
+    }
+
+    function renderBreedDetailModal() {
+      const b = state.showBreedDetail;
+      let html = '<div class="modal-overlay" onclick="state.showBreedDetail=null;render()"><div class="modal modal-large" onclick="event.stopPropagation()"><div class="modal-header"><h2>' + escapeHtml(b.nombre) + '</h2><button class="btn-close" onclick="state.showBreedDetail=null;render()">' + icons.close + '</button></div><div class="modal-body breed-detail">';
+      if (b.grupoFCI) html += '<span class="fci-badge">' + b.grupoFCI + '</span>';
+      html += '<img src="' + (b.imagen||'/img/icon-512.png') + '" alt="' + escapeAttr(b.nombre) + '" onerror="this.src=\'/img/icon-512.png\'"/><h3>' + escapeHtml(b.nombre) + '</h3><p class="descripcion">' + escapeHtml(b.descripcion||'') + '</p>';
+      html += '<div class="detail-grid">';
+      html += detailItem('Origen', b.origen);
+      html += detailItem('Tamano', b.tamano);
+      html += detailItem('Temperamento', b.temperamento);
+      html += detailItem('Cuidados', b.cuidados);
+      html += detailItem('Esperanza de vida', b.esperanzaVida);
+      html += detailItem('Altura', b.altura);
+      html += detailItem('Peso', b.peso);
+      html += '</div></div></div></div>';
+      return html;
+    }
+    function detailItem(label, value) {
+      return '<div class="detail-item"><span class="label">' + label + '</span><span class="value">' + escapeHtml(value||'N/D') + '</span></div>';
+    }
+
+    function renderPipicanes() {
+      let html = '<div class="hero" style="paddingBottom:0"><div style="display:flex;align-items:center;justify-content:space-between;marginBottom:12px"><div class="section-title" style="margin:0">' + icons.map + '<span>Pipicanes</span></div><button class="btn-primary" onclick="getLocation()">' + icons.nav + ' Mi ubicacion</button></div>';
+      if (state.locationError) html += '<p style="color:var(--color-danger);font-size:0.85rem;marginBottom:8px">' + state.locationError + '</p>';
+      const center = state.userLocation || {lat:41.3874,lng:2.1686};
+      html += '<div class="map-container"><iframe src="https://maps.google.com/maps?q=' + center.lat + ',' + center.lng + '&z=12&output=embed" allowFullScreen loading="lazy" title="Mapa Pipicanes"></iframe></div></div>';
+      html += '<div class="location-list">';
+      for (const p of state.pipicanes) {
+        html += '<div class="location-item" onclick="showPipicanMap(' + p.lat + ',' + p.lng + ',\'' + escapeAttr(p.nombre) + '\')"><div class="location-icon">' + icons.paw + '</div><div class="location-info"><h4>' + escapeHtml(p.nombre) + '</h4><p>' + escapeHtml(p.direccion) + ', ' + escapeHtml(p.ciudad) + '</p>';
+        if (p.distancia !== undefined) html += '<span class="location-distance">' + p.distancia + ' km</span>';
+        html += '<div class="location-features">';
+        if (p.vallas) html += '<span class="feature-tag">Vallado</span>';
+        if (p.agua) html += '<span class="feature-tag">Agua</span>';
+        if (p.sombra) html += '<span class="feature-tag">Sombra</span>';
+        html += '<span class="feature-tag">' + icons.clock + ' ' + escapeHtml(p.horario) + '</span>';
+        html += '</div></div></div>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function showPipicanMap(lat, lng, nombre) {
+      const container = document.querySelector('.map-container');
+      if (container) container.innerHTML = '<iframe src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=15&output=embed" allowFullScreen loading="lazy" title="' + nombre + '"></iframe>';
+    }
+
+    function renderStores() {
+      let html = '<div class="hero" style="paddingBottom:0"><div style="display:flex;align-items:center;justify-content:space-between;marginBottom:12px"><div class="section-title" style="margin:0">' + icons.store + '<span>Tiendas de mascotas</span></div><button class="btn-primary" onclick="getLocation()">' + icons.nav + ' Mi ubicacion</button></div>';
+      const center = state.userLocation || {lat:41.3874,lng:2.1686};
+      html += '<div class="map-container"><iframe src="https://maps.google.com/maps?q=' + center.lat + ',' + center.lng + '&z=12&output=embed" allowFullScreen loading="lazy" title="Mapa Tiendas"></iframe></div></div>';
+      html += '<div class="location-list">';
+      for (const s of state.stores) {
+        html += '<div class="location-item" onclick="showStoreMap(' + s.lat + ',' + s.lng + ',\'' + escapeAttr(s.nombre) + '\')"><div class="location-icon" style="background:rgba(124,58,237,0.15);color:var(--color-purple)">' + icons.store + '</div><div class="location-info"><h4>' + escapeHtml(s.nombre) + '</h4><p>' + escapeHtml(s.direccion) + ', ' + escapeHtml(s.ciudad) + '</p>';
+        if (s.telefono) html += '<p style="font-size:0.75rem">' + escapeHtml(s.telefono) + '</p>';
+        if (s.distancia !== undefined) html += '<span class="location-distance">' + s.distancia + ' km</span>';
+        html += '<div class="location-features">';
+        if (s.servicios) for (const srv of s.servicios) html += '<span class="feature-tag">' + escapeHtml(srv) + '</span>';
+        html += '</div></div></div>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function showStoreMap(lat, lng, nombre) {
+      const container = document.querySelector('.map-container');
+      if (container) container.innerHTML = '<iframe src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=15&output=embed" allowFullScreen loading="lazy" title="' + nombre + '"></iframe>';
+    }
+
+    function renderProfile() {
+      if (!state.user) {
+        return '<div class="empty-state" style="paddingTop:60px"><div class="empty-state-icon">' + icons.user + '</div><p>No has iniciado sesion.<br>Inicia sesion para ver tu perfil y subir videos.</p><button class="btn-primary" style="marginTop:16px" onclick="state.showLogin=true;render()">Iniciar sesion</button></div>';
+      }
+      let html = '<div class="profile-header">';
+      if (state.user.fotoPerfil) {
+        html += '<img class="profile-photo" src="' + state.user.fotoPerfil + '" alt="Foto de perfil" onerror="this.style.display=\'none\'"/>';
+      } else {
+        html += '<div class="profile-avatar">' + (state.user.nombre?.charAt(0)?.toUpperCase()||'U') + '</div>';
+      }
+      html += '<div class="profile-name">' + escapeHtml(state.user.nombre) + '</div><div class="profile-email">' + escapeHtml(state.user.email) + '</div>';
+      if (state.user.perro?.nombre) {
+        html += '<div class="profile-dog">';
+        if (state.user.fotoPerro) {
+          html += '<img class="profile-pet-photo" src="' + state.user.fotoPerro + '" alt="Foto de mascota" onerror="this.style.display=\'none\'"/>';
+        }
+        html += '<div class="profile-dog-name">' + icons.paw + ' ' + escapeHtml(state.user.perro.nombre) + '</div><div class="profile-dog-info">';
+        if (state.user.perro.raza) html += 'Raza: ' + escapeHtml(state.user.perro.raza);
+        if (state.user.perro.mesNacimiento && state.user.perro.anioNacimiento) html += ' - Nacio: ' + state.user.perro.mesNacimiento + '/' + state.user.perro.anioNacimiento;
+        html += '</div>';
+        if (state.user.perro.comentario) {
+          html += '<div class="profile-comment">"' + escapeHtml(state.user.perro.comentario) + '"</div>';
+        }
+        html += '</div>';
+      }
+      html += '<button class="profile-edit-btn" onclick="state.showProfileEdit=true;render()">' + icons.user + ' Editar perfil</button>';
+      html += '</div>';
+      html += '<div class="profile-section"><h3>Mis videos (' + state.userPosts.length + ')</h3>';
+      if (state.userPosts.length === 0) {
+        html += '<div class="empty-state" style="padding:20px"><p>Aun no has subido videos.</p></div>';
+      } else {
+        for (const post of state.userPosts) {
+          html += '<div class="profile-video-item"><video controls preload="metadata" src="' + post.archivo + '"></video><div class="profile-video-info"><p>' + escapeHtml(post.raza) + ' - ' + escapeHtml(post.historia) + '</p><small style="color:var(--color-text-light)">' + (post.likes||0) + ' likes - ' + (post.comentarios?.length||0) + ' comentarios</small></div></div>';
+        }
+      }
+      html += '</div><div class="profile-section"><button class="btn-secondary" style="width:100%" onclick="handleLogout()">' + icons.logout + ' Cerrar sesion</button></div>';
+      return html;
+    }
+
+    function renderLoginModal() {
+      const isReg = state._isRegister || false;
+      let html = '<div class="modal-overlay" onclick="state.showLogin=false;state.authError=\'\';render()"><div class="modal" onclick="event.stopPropagation()"><div class="modal-header"><h2>' + (isReg?'Crear cuenta':'Iniciar sesion') + '</h2><button class="btn-close" onclick="state.showLogin=false;state.authError=\'\';render()">' + icons.close + '</button></div><div class="modal-body">';
+      if (state.authError) html += '<p class="form-error" style="marginBottom:12px;textAlign:center">' + state.authError + '</p>';
+      html += '<form onsubmit="handleAuthSubmit(event)">';
+      if (isReg) html += '<div class="form-group"><label class="form-label">Nombre completo</label><input class="form-input" type="text" id="reg-nombre" required style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div>';
+      html += '<div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="auth-email" required value="' + escapeAttr(localStorage.getItem('ladridos_remember_email') || '') + '" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div>';
+      html += '<div class="form-group"><label class="form-label">Contrasena</label><input class="form-input" type="password" id="auth-password" required style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div>';
+      if (isReg) {
+        html += '<div class="form-group"><label class="form-label">Nombre de tu perro (opcional)</label><input class="form-input" type="text" id="reg-perro" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div>';
+        html += '<div class="form-group"><label class="form-label">Raza de tu perro (opcional)</label><input class="form-input" type="text" id="reg-raza" list="razas-list" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/><datalist id="razas-list">';
+        for (const b of state.breeds.slice(0,100)) html += '<option value="' + escapeAttr(b.nombre) + '">';
+        html += '</datalist></div>';
+        html += '<div class="form-row"><div class="form-group"><label class="form-label">Mes nacimiento</label><select class="form-select" id="reg-mes"><option value="">-</option>';
+        const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+        for (let i=0;i<12;i++) html += '<option value="' + (i+1) + '">' + meses[i] + '</option>';
+        html += '</select></div><div class="form-group"><label class="form-label">Anio nacimiento</label><input class="form-input" type="number" min="2000" max="2026" id="reg-anio" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div></div>';
+      }
+      // Remember me checkbox
+      const rememberChecked = localStorage.getItem('ladridos_remember') === 'true' ? 'checked' : '';
+      html += '<div class="form-group" style="display:flex;align-items:center;gap:8px;marginTop:4px"><input type="checkbox" id="auth-remember" ' + rememberChecked + ' style="width:18px;height:18px;accent-color:var(--color-accent);cursor:pointer"/><label for="auth-remember" style="font-size:0.85rem;color:var(--color-text-light);cursor:pointer;user-select:none">Recordarme en este dispositivo</label></div>';
+      html += '<button type="submit" class="btn-primary" style="width:100%;marginTop:8px"' + (state.loading ? ' disabled' : '') + '>' + (state.loading?'Cargando...':(isReg?'Crear cuenta':'Entrar')) + '</button></form>';
+      html += '<p class="toggle-auth">' + (isReg?'Ya tienes cuenta?':'No tienes cuenta?') + ' <button class="link-btn" onclick="state._isRegister=' + (!isReg ? 'true' : 'false') + ';render()">' + (isReg?'Iniciar sesion':'Registrarse') + '</button></p>';
+      html += '</div></div></div>';
+      return html;
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const isReg = state._isRegister || false;
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const remember = document.getElementById('auth-remember')?.checked || false;
+      if (isReg) {
+        handleRegister({
+          nombre: document.getElementById('reg-nombre').value,
+          email, password,
+          nombrePerro: document.getElementById('reg-perro').value,
+          razaPerro: document.getElementById('reg-raza').value,
+          mesNacimiento: document.getElementById('reg-mes').value,
+          anioNacimiento: document.getElementById('reg-anio').value
+        }, remember);
+      } else {
+        handleLogin(email, password, remember);
+      }
+    }
+
+    function renderUploadModal() {
+      let html = '<div class="modal-overlay" onclick="state.showUpload=false;render()"><div class="modal" onclick="event.stopPropagation()"><div class="modal-header"><h2>Compartir video</h2><button class="btn-close" onclick="state.showUpload=false;render()">' + icons.close + '</button></div><div class="modal-body"><form onsubmit="handleUploadSubmit(event)">';
+      html += '<div class="form-group"><label class="form-label">Raza del perro</label><input class="form-input" type="text" list="razas-upload" id="upload-raza" required style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/><datalist id="razas-upload">';
+      for (const b of state.breeds.slice(0,150)) html += '<option value="' + escapeAttr(b.nombre) + '">';
+      html += '</datalist></div>';
+      html += '<div class="form-group"><label class="form-label">Comentario sobre el video</label><textarea class="form-textarea" id="upload-historia" placeholder="Cuenta la historia de tu perro..." required></textarea></div>';
+      html += '<div class="form-group"><label class="form-label">Video (max 2MB)</label><input type="file" accept="video/*" id="upload-file" required onchange="checkFileSize(this)" style="width:100%;padding:8px"/><p id="file-error" class="form-error" style="display:none"></p></div>';
+      html += '<button type="submit" class="btn-primary" style="width:100%">' + (state.loading?'Subiendo...':'Publicar video') + '</button></form></div></div></div>';
+      return html;
+    }
+
+    function renderProfileEditModal() {
+      const u = state.user;
+      let html = '<div class="modal-overlay" onclick="state.showProfileEdit=false;render()"><div class="modal" onclick="event.stopPropagation()"><div class="modal-header"><h2>Editar perfil</h2><button class="btn-close" onclick="state.showProfileEdit=false;render()">' + icons.close + '</button></div><div class="modal-body"><form onsubmit="handleProfileSubmit(event)">';
+      html += '<div class="form-group"><label class="form-label">Tu nombre</label><input class="form-input" type="text" id="profile-nombre" value="' + escapeAttr(u.nombre) + '" required style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div>';
+      html += '<div class="form-row"><div class="form-group photo-upload"><label class="photo-label">Foto tuya</label>';
+      html += '<img class="photo-preview" id="preview-fotoPerfil" src="' + (u.fotoPerfil || '/img/icon-512.png') + '" onerror="this.src=\'/img/icon-512.png\'"/>';
+      html += '<input type="file" accept="image/*" id="profile-fotoPerfil" onchange="previewImage(this,\'preview-fotoPerfil\')" style="font-size:0.75rem"/></div>';
+      html += '<div class="form-group photo-upload"><label class="photo-label">Foto de tu perro</label>';
+      html += '<img class="photo-preview" id="preview-fotoPerro" src="' + (u.fotoPerro || '/img/icon-512.png') + '" onerror="this.src=\'/img/icon-512.png\'"/>';
+      html += '<input type="file" accept="image/*" id="profile-fotoPerro" onchange="previewImage(this,\'preview-fotoPerro\')" style="font-size:0.75rem"/></div></div>';
+      html += '<div class="form-group"><label class="form-label">Nombre de tu perro</label><input class="form-input" type="text" id="profile-perroNombre" value="' + escapeAttr(u.perro?.nombre||'') + '" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div>';
+      html += '<div class="form-group"><label class="form-label">Raza de tu perro</label><input class="form-input" type="text" list="razas-list-edit" id="profile-perroRaza" value="' + escapeAttr(u.perro?.raza||'') + '" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/><datalist id="razas-list-edit">';
+      for (const b of state.breeds) html += '<option value="' + escapeAttr(b.nombre) + '">';
+      html += '</datalist></div>';
+      html += '<div class="form-row"><div class="form-group"><label class="form-label">Mes nacimiento</label><select class="form-select" id="profile-perroMes"><option value="">-</option>';
+      const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+      for (let i=0;i<12;i++) html += '<option value="' + (i+1) + '"' + (String(u.perro?.mesNacimiento)===String(i+1)?' selected':'') + '>' + meses[i] + '</option>';
+      html += '</select></div><div class="form-group"><label class="form-label">Anio nacimiento</label><input class="form-input" type="number" min="2000" max="2026" id="profile-perroAnio" value="' + escapeAttr(u.perro?.anioNacimiento||'') + '" style="width:100%;padding:10px 14px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none"/></div></div>';
+      html += '<div class="form-group"><label class="form-label">Comentario sobre tu perro</label><textarea class="form-textarea" id="profile-comentarioPerro" placeholder="Cuentanos algo especial sobre tu perro...">' + escapeHtml(u.perro?.comentario||'') + '</textarea></div>';
+      if (state.authError) html += '<p class="form-error" style="marginBottom:12px;textAlign:center">' + state.authError + '</p>';
+      html += '<button type="submit" class="btn-primary" style="width:100%">' + (state.loading?'Guardando...':'Guardar cambios') + '</button></form></div></div></div>';
+      return html;
+    }
+
+    function previewImage(input, previewId) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => { const el = document.getElementById(previewId); if (el) el.src = e.target.result; };
+      reader.readAsDataURL(file);
+    }
+
+    async function handleProfileSubmit(e) {
+      e.preventDefault();
+      state.loading = true; state.authError = ''; render();
+      const formData = new FormData();
+      formData.append('nombre', document.getElementById('profile-nombre').value);
+      formData.append('nombrePerro', document.getElementById('profile-perroNombre').value);
+      formData.append('razaPerro', document.getElementById('profile-perroRaza').value);
+      formData.append('mesNacimiento', document.getElementById('profile-perroMes').value);
+      formData.append('anioNacimiento', document.getElementById('profile-perroAnio').value);
+      formData.append('comentarioPerro', document.getElementById('profile-comentarioPerro').value);
+      const fotoPerfil = document.getElementById('profile-fotoPerfil').files[0];
+      const fotoPerro = document.getElementById('profile-fotoPerro').files[0];
+      if (fotoPerfil) formData.append('fotoPerfil', fotoPerfil);
+      if (fotoPerro) formData.append('fotoPerro', fotoPerro);
+
+      const token = localStorage.getItem('ladridos_token');
+      const res = await fetch(API + '/auth/profile', { method: 'PUT', headers: { 'Authorization': 'Bearer ' + token }, body: formData });
+      const data = await res.json();
+      state.loading = false;
+      if (res.ok) { state.user = data.user; state.showProfileEdit = false; }
+      else state.authError = data.message || 'Error al actualizar';
+      render();
+    }
+
+    function checkFileSize(input) {
+      const file = input.files[0];
+      const errEl = document.getElementById('file-error');
+      if (!file) return;
+      if (!file.type.startsWith('video/')) { errEl.textContent = 'Solo se permiten archivos de video'; errEl.style.display = 'block'; return; }
+      if (file.size > 2*1024*1024) { errEl.textContent = 'El video pesa ' + (file.size/(1024*1024)).toFixed(1) + 'MB. El maximo es 2MB.'; errEl.style.display = 'block'; return; }
+      errEl.style.display = 'none';
+    }
+
+    async function handleUploadSubmit(e) {
+      e.preventDefault();
+      const raza = document.getElementById('upload-raza').value;
+      const historia = document.getElementById('upload-historia').value;
+      const fileInput = document.getElementById('upload-file');
+      const file = fileInput.files[0];
+      if (!file) return;
+      if (file.size > 2*1024*1024) { alert('El video pesa ' + (file.size/(1024*1024)).toFixed(1) + 'MB. El maximo es 2MB.'); return; }
+      state.loading = true; render();
+      const formData = new FormData();
+      formData.append('raza', raza);
+      formData.append('historia', historia);
+      formData.append('archivo', file);
+      const token = localStorage.getItem('ladridos_token');
+      const res = await fetch(API + '/upload', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token }, body: formData });
+      const data = await res.json();
+      state.loading = false;
+      if (res.ok) { state.showUpload = false; loadPosts(); loadUserPosts(state.user.userId); }
+      else alert(data.message || 'Error al subir');
+      render();
+    }
+
+    async function handleComment(postId) {
+      if (!state.user) { state.showLogin = true; render(); return; }
+      const input = document.getElementById('comment-' + postId);
+      if (!input || !input.value.trim()) return;
+      const token = localStorage.getItem('ladridos_token');
+      await fetch(API + '/posts/' + postId + '/comment', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ texto: input.value.trim() })
+      });
+      loadPosts();
+    }
+
+    async function installApp() {
+      if (state.deferredPrompt) {
+        state.deferredPrompt.prompt();
+        const { outcome } = await state.deferredPrompt.userChoice;
+        if (outcome === 'accepted') localStorage.setItem('ladridos_installed', 'true');
+        state.deferredPrompt = null;
+        render();
+      }
+    }
+
+    function setBanner(index) {
+      state.currentBanner = index;
+      renderBanner();
+    }
+
+    function renderBanner() {
+      const container = document.getElementById('banner-container');
+      const dots = document.getElementById('banner-dots');
+      if (container) container.innerHTML = '<img src="' + state.banners[state.currentBanner] + '" alt="Banner Ladridos" onerror="this.style.display=\'none\'"/>';
+      if (dots) {
+        dots.innerHTML = '';
+        for (let i = 0; i < state.banners.length; i++) {
+          dots.innerHTML += '<div class="banner-dot' + (i === state.currentBanner ? ' active' : '') + '" onclick="setBanner(' + i + ')"></div>';
+        }
+      }
+    }
+
+    // Helpers
+    function escapeHtml(s) { if(!s) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function escapeAttr(s) { if(!s) return ''; return String(s).replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>
