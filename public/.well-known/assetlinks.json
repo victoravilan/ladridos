@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.ladridos.app",
+    "package_name": "com.ladridos2026.app",
     "sha256_cert_fingerprints": [
       "C5:68:F7:E5:65:4D:1C:39:01:88:62:6B:17:96:1C:7C:C7:BA:B8:5B:E0:7F:41:64:BB:03:AB:10:92:CE:54:5A"
     ]
